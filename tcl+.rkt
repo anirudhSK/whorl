@@ -1,6 +1,5 @@
 #lang s-exp rosette
-(require rosette/lang/debug rosette/lib/tools/render
-rosette/lib/meta/meta)
+(require rosette/lib/render rosette/lib/synthax rosette/query/debug)
 (provide (all-defined-out) ! && || <=> define/debug
 #%datum #%app #%module-begin #%top-interaction
 quote (for-syntax #%datum))
@@ -23,13 +22,4 @@ v)
 (define (synthesize-circuit impl spec)
 (define input (symbolic-input spec))
 (generate-forms
-(synthesize #:forall input
-#:guarantee (correct impl spec input))))
-(define-synthax (Circuit [op1 op2 ...] expr ... #:depth d)
-#:assert (>= d 0)
-([choose op1 identity]
-[choose
-expr ...
-([choose op2 ...]
-(Circuit [op1 op2 ...] expr ... #:depth (- d 1))
-(Circuit [op1 op2 ...] expr ... #:depth (- d 1)))]))
+(synthesize #:forall input #:guarantee (correct impl spec input))))
