@@ -45,7 +45,7 @@
 (define-circuit (RBC-parity a b c d)
   (xor (<=> a b) (<=> c d)))
 
-(define-circuit (AIG-parity a b c d)
+(define/debug (AIG-parity a b c d)
   (&&
   (! (&& (! (&& (! (&& a b)) (&& (! a) (! b))))
          (! (&& (&& (! c) (! d)) (! (&& c d))))))
