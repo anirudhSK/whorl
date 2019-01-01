@@ -23,3 +23,10 @@ v)
 (define input (symbolic-input spec))
 (generate-forms
 (synthesize #:forall input #:guarantee (correct impl spec input))))
+
+(define-synthax (nnf x y depth)
+ #:base (choose x (! x) y (! y))
+ #:else (choose
+         x (! x) y (! y)
+         ((choose && ||) (nnf x y (- depth 1))
+                         (nnf x y (- depth 1)))))
