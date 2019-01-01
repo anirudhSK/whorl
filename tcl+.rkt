@@ -25,7 +25,7 @@
 (define (debug-circuit impl spec input)
   (render (debug [boolean?] (correct impl spec input))))
 
-(define (solve-circuit impl spec . inputs)
+(define (solve-circuit impl spec inputs)
   (solve (for ([input inputs]) (correct impl spec input))))
 
 (define (synthesize-circuit impl spec)
