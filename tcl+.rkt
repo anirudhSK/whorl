@@ -1,6 +1,7 @@
 #lang s-exp rosette
 
 (require rosette/lib/render rosette/lib/synthax rosette/query/debug)
+(require pict)
 
 (provide (all-defined-out) ! && || <=> define/debug
          #%datum #%app #%module-begin #%top-interaction
@@ -53,3 +54,10 @@
          (&& (! (&& (! c) (! d))) (! (&& c d)))))))
 
 (verify-circuit AIG-parity RBC-parity)
+
+(define core
+  (debug [boolean?]
+         (assert (eq? (AIG-parity #t #t #t #f)
+                      (RBC-parity #t #t #t #f)))))
+(render core)
+(show-pict (render core) 10 10)
